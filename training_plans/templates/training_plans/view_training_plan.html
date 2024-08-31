@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Your Generated Training Plan</h2>
+    
+    {% for week in grouped_workouts_with_dates %}
+        <h3>Week {{ week.week_number }} - Starting {{ week.start_date }}</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    {% for day in days_of_week %}
+                        <th>{{ day }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for day in days_of_week %}
+                        <td>
+                            {% for workout in week.workouts %}
+                                {% if workout.day_of_week == day %}
+                                    {{ workout.workout_type }} - Distance: {{ workout.distance_km }} km, Elevation: {{ workout.elevation_gain_m }} m
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    {% endfor %}
+{% endblock %}

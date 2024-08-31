@@ -1,0 +1,30 @@
+/* General body padding */
+body {
+    padding-top: 50px;
+}
+
+/* Navbar styles */
+.navbar {
+    margin-bottom: 20px;
+}
+
+/* Custom styles for footer */
+.footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 15px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Message display styles */
+.alert {
+    margin-top: 20px;
+}
+
+/* Main container styles */
+.container {
+    margin-top: 20px;
+}
+

@@ -1,0 +1,14 @@
+<!-- templates/index.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+Home - RunPlan
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Welcome to RunPlan!</h1>
+    <p>Your go-to app for personalized running training plans and nutrition.</p>
+    <a href="{% url 'training_plans:generate_training_plan' %}" class="btn btn-primary">Generate Your Training Plan</a>
+</div>
+{% endblock %}

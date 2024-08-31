@@ -1,0 +1,17 @@
+<!-- training_plans/templates/training_plans/generate_training_plan.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+Generate Training Plan - RunPlan
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2>Generate Your Training Plan</h2>
+    <form method="post" class="form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Generate Plan</button>
+    </form>
+  </div>
+{% endblock %}

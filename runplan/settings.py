@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+
 if os.path.isfile('env.py'):
     import env
 
@@ -23,12 +24,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'your_default_secret_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-brianmcconway-runplan-smpucvgjxoh.ws.codeinstitute-ide.net']
+ALLOWED_HOSTS = [
+    '8000-brianmcconway-runplan-smpucvgjxoh.ws.codeinstitute-ide.net', 
+    'localhost', 
+    '127.0.0.1'
+]
 
 
 # Application definition
@@ -40,7 +45,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'training_plans',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -50,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware'
 ]
 
 ROOT_URLCONF = 'runplan.urls'
@@ -57,7 +70,7 @@ ROOT_URLCONF = 'runplan.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -114,12 +127,22 @@ USE_I18N = True
 
 USE_TZ = True
 
+# Allauth configuration
+LOGIN_REDIRECT_URL = '/'  # URL to redirect to after a successful login
+LOGOUT_REDIRECT_URL = '/'  # URL to redirect to after a logout
+ACCOUNT_EMAIL_VERIFICATION = 'none'  # 'mandatory' for required email verification
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'username'  # or 'email' or 'username_email'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
+# Trust the origins for CSRF protection
 CSRF_TRUSTED_ORIGINS = [
     'https://8000-brianmcconway-runplan-smpucvgjxoh.ws.codeinstitute-ide.net',
 ]
